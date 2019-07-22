@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Student {
+public class Trainer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +21,8 @@ public class Student {
 
     @ManyToMany
     @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "student_id"),
+            name = "trainer_course",
+            joinColumns = @JoinColumn(name = "trainer_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     private List<Course> courses;

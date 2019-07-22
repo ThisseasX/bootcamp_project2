@@ -4,4 +4,6 @@ public interface StudentService {
     void printAllStudents();
 
     void printAllAssignmentsPerCoursePerStudent();
+
+    void printAllStudentsWithMoreThanOneCourse();
 }

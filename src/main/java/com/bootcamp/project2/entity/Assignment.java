@@ -15,6 +15,11 @@ public class Assignment {
     @Column
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Course course;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -16,14 +16,17 @@ public class Course {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "course")
     private List<Assignment> assignments;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id")
-    )
+    @ManyToMany(mappedBy = "courses")
     private List<Student> students;
+
+    @ManyToMany(mappedBy = "courses")
+    private List<Trainer> trainers;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
