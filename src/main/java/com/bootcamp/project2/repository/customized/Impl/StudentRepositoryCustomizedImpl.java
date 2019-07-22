@@ -21,7 +21,7 @@ public class StudentRepositoryCustomizedImpl implements StudentRepositoryCustomi
                 "SELECT s " +
                 "FROM Student s " +
                 "GROUP BY s " +
-                "HAVING s.courses.size > 1", Student.class)
+                "HAVING size(s.courses) > 1", Student.class)
                 .getResultList();
     }
 }

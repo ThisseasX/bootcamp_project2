@@ -5,6 +5,8 @@ import com.bootcamp.project2.service.CourseService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @AllArgsConstructor
 public class CourseServiceImpl implements CourseService {
@@ -19,6 +21,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public void printAllStudentsPerCourse() {
         courseRepository
                 .findAll()
@@ -30,6 +33,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public void printAllTrainersPerCourse() {
         courseRepository
                 .findAll()
@@ -41,6 +45,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public void printAllAssignmentsPerCourse() {
         courseRepository
                 .findAll()

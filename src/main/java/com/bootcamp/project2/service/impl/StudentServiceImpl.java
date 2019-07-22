@@ -5,6 +5,8 @@ import com.bootcamp.project2.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
@@ -19,6 +21,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @Transactional
     public void printAllAssignmentsPerCoursePerStudent() {
         studentRepository
                 .findAll()

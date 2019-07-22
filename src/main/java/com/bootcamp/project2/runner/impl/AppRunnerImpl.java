@@ -6,10 +6,12 @@ import com.bootcamp.project2.service.CourseService;
 import com.bootcamp.project2.service.StudentService;
 import com.bootcamp.project2.service.TrainerService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
 
 @AllArgsConstructor
+@Component
 public class AppRunnerImpl implements AppRunner {
 
     private StudentService studentService;
