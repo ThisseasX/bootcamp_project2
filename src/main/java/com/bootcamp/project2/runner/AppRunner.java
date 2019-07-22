@@ -28,35 +28,71 @@ public class AppRunner implements CommandLineRunner {
 
             switch (action) {
                 case "1":
-                    studentService.printAllStudents();
+                    printAllStudents();
                     break;
                 case "2":
-                    trainerService.printAllTrainers();
+                    printAllTrainers();
                     break;
                 case "3":
-                    assignmentService.printAllAssignments();
+                    printAllAssignments();
                     break;
                 case "4":
-                    courseService.printAllCourses();
+                    printAllCourses();
                     break;
                 case "5":
-                    courseService.printAllStudentsPerCourse();
+                    printAllStudentsPerCourse();
                     break;
                 case "6":
-                    courseService.printAllTrainersPerCourse();
+                    printAllTrainersPerCourse();
                     break;
                 case "7":
-                    courseService.printAllAssignmentsPerCourse();
+                    printAllAssignmentsPerCourse();
                     break;
                 case "8":
-                    studentService.printAllAssignmentsPerCoursePerStudent();
+                    printAllAssignmentsPerCoursePerStudent();
                     break;
                 case "9":
-                    studentService.printAllStudentsWithMoreThanOneCourse();
+                    printAllStudentsWithMoreThanOneCourse();
                     break;
                 case "exit":
                     break loop;
             }
         }
+    }
+
+    public void printAllStudents() {
+        studentService.printAllStudents();
+    }
+
+    public void printAllTrainers() {
+        trainerService.printAllTrainers();
+    }
+
+    public void printAllAssignments() {
+        assignmentService.printAllAssignments();
+    }
+
+    public void printAllCourses() {
+        courseService.printAllCourses();
+    }
+
+    public void printAllStudentsPerCourse() {
+        courseService.printAllStudentsPerCourse();
+    }
+
+    public void printAllTrainersPerCourse() {
+        courseService.printAllTrainersPerCourse();
+    }
+
+    public void printAllAssignmentsPerCourse() {
+        courseService.printAllAssignmentsPerCourse();
+    }
+
+    public void printAllAssignmentsPerCoursePerStudent() {
+        studentService.printAllAssignmentsPerCoursePerStudent();
+    }
+
+    public void printAllStudentsWithMoreThanOneCourse() {
+        studentService.printAllStudentsWithMoreThanOneCourse();
     }
 }
