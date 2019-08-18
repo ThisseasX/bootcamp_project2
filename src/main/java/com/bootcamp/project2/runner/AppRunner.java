@@ -1,5 +1,6 @@
 package com.bootcamp.project2.runner;
 
+import com.bootcamp.project2.runner.actions.Action;
 import com.bootcamp.project2.service.AssignmentService;
 import com.bootcamp.project2.service.CourseService;
 import com.bootcamp.project2.service.StudentService;
@@ -8,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.util.Map;
 import java.util.Scanner;
 
 @AllArgsConstructor
@@ -19,43 +22,41 @@ public class AppRunner implements CommandLineRunner {
     private AssignmentService assignmentService;
     private TrainerService trainerService;
 
+    private Map<String, Action> actionMap;
+
+    @PostConstruct
+    private void init() {
+        actionMap.put("1", new Action("Show all students", this::printAllStudents));
+        actionMap.put("2", new Action("Show all trainers", this::printAllTrainers));
+        actionMap.put("3", new Action("Show all assignments", this::printAllAssignments));
+        actionMap.put("4", new Action("Show all courses", this::printAllCourses));
+        actionMap.put("5", new Action("Show all students per course", this::printAllStudentsPerCourse));
+        actionMap.put("6", new Action("Show all trainers per course", this::printAllTrainersPerCourse));
+        actionMap.put("7", new Action("Show all assignments per course", this::printAllAssignmentsPerCourse));
+        actionMap.put("8", new Action("Show all assignments per course per student", this::printAllAssignmentsPerCoursePerStudent));
+        actionMap.put("9", new Action("Show all students with more than one course", this::printAllStudentsWithMoreThanOneCourse));
+    }
+
+    public void printActions() {
+        actionMap.forEach((key, value) -> System.out.printf("%s) %s%n", key, value.getDescription()));
+    }
+
     @Override
     public void run(String... args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        loop:
-        while (true) {
-            String action = sc.next();
 
-            switch (action) {
-                case "1":
-                    printAllStudents();
-                    break;
-                case "2":
-                    printAllTrainers();
-                    break;
-                case "3":
-                    printAllAssignments();
-                    break;
-                case "4":
-                    printAllCourses();
-                    break;
-                case "5":
-                    printAllStudentsPerCourse();
-                    break;
-                case "6":
-                    printAllTrainersPerCourse();
-                    break;
-                case "7":
-                    printAllAssignmentsPerCourse();
-                    break;
-                case "8":
-                    printAllAssignmentsPerCoursePerStudent();
-                    break;
-                case "9":
-                    printAllStudentsWithMoreThanOneCourse();
-                    break;
-                case "exit":
-                    break loop;
+        while (true) {
+            System.out.println("-- Available actions --");
+            printActions();
+            System.out.println("-- Please choose an action by typing the desired number --");
+            Action action = actionMap.get(sc.next());
+            if (action != null) {
+                action.run();
+                System.out.println("Press any key to continue...");
+                sc.nextLine();
+                sc.nextLine();
+            } else {
+                break;
             }
         }
     }
