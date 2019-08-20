@@ -37,7 +37,7 @@ public class AppRunner implements CommandLineRunner {
         actionMap.put("9", new Action("Show all students with more than one course", this::printAllStudentsWithMoreThanOneCourse));
     }
 
-    public void printActions() {
+    private void printActions() {
         actionMap.forEach((key, value) -> System.out.printf("%s) %s%n", key, value.getDescription()));
     }
 
@@ -49,10 +49,13 @@ public class AppRunner implements CommandLineRunner {
             System.out.println("-- Available actions --");
             printActions();
             System.out.println("-- Please choose an action by typing the desired number --");
+
             Action action = actionMap.get(sc.next());
             if (action != null) {
                 action.run();
+
                 System.out.println("Press any key to continue...");
+
                 sc.nextLine();
                 sc.nextLine();
             } else {
@@ -61,39 +64,39 @@ public class AppRunner implements CommandLineRunner {
         }
     }
 
-    public void printAllStudents() {
+    private void printAllStudents() {
         studentService.printAllStudents();
     }
 
-    public void printAllTrainers() {
+    private void printAllTrainers() {
         trainerService.printAllTrainers();
     }
 
-    public void printAllAssignments() {
+    private void printAllAssignments() {
         assignmentService.printAllAssignments();
     }
 
-    public void printAllCourses() {
+    private void printAllCourses() {
         courseService.printAllCourses();
     }
 
-    public void printAllStudentsPerCourse() {
+    private void printAllStudentsPerCourse() {
         courseService.printAllStudentsPerCourse();
     }
 
-    public void printAllTrainersPerCourse() {
+    private void printAllTrainersPerCourse() {
         courseService.printAllTrainersPerCourse();
     }
 
-    public void printAllAssignmentsPerCourse() {
+    private void printAllAssignmentsPerCourse() {
         courseService.printAllAssignmentsPerCourse();
     }
 
-    public void printAllAssignmentsPerCoursePerStudent() {
+    private void printAllAssignmentsPerCoursePerStudent() {
         studentService.printAllAssignmentsPerCoursePerStudent();
     }
 
-    public void printAllStudentsWithMoreThanOneCourse() {
+    private void printAllStudentsWithMoreThanOneCourse() {
         studentService.printAllStudentsWithMoreThanOneCourse();
     }
 }
