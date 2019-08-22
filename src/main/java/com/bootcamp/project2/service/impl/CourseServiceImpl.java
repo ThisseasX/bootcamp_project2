@@ -1,7 +1,9 @@
 package com.bootcamp.project2.service.impl;
 
+import com.bootcamp.project2.entity.Course;
 import com.bootcamp.project2.repository.CourseRepository;
 import com.bootcamp.project2.service.CourseService;
+import com.bootcamp.project2.utils.input.InputPersister;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +56,13 @@ public class CourseServiceImpl implements CourseService {
                     course.getAssignments()
                             .forEach(assignment -> System.out.println("  " + assignment));
                 });
+    }
+
+    @Override
+    public void createCourse() {
+        InputPersister.requestInputAndPersist(
+                Course.class,
+                courseRepository
+        );
     }
 }

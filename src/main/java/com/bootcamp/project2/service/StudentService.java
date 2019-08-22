@@ -6,4 +6,6 @@ public interface StudentService {
     void printAllAssignmentsPerCoursePerStudent();
 
     void printAllStudentsWithMoreThanOneCourse();
+
+    void createStudent();
 }

@@ -5,12 +5,12 @@ import com.bootcamp.project2.service.AssignmentService;
 import com.bootcamp.project2.service.CourseService;
 import com.bootcamp.project2.service.StudentService;
 import com.bootcamp.project2.service.TrainerService;
+import com.bootcamp.project2.utils.iteration.IndexedList;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.util.Map;
+import java.util.Arrays;
 import java.util.Scanner;
 
 @AllArgsConstructor
@@ -22,23 +22,32 @@ public class AppRunner implements CommandLineRunner {
     private AssignmentService assignmentService;
     private TrainerService trainerService;
 
-    private Map<String, Action> actionMap;
+    private final IndexedList<Action> actionList = new IndexedList<>(Arrays.asList(
+            new Action("Show all students", this::printAllStudents),
+            new Action("Show all trainers", this::printAllTrainers),
+            new Action("Show all assignments", this::printAllAssignments),
+            new Action("Show all courses", this::printAllCourses),
+            new Action("Show all students per course", this::printAllStudentsPerCourse),
+            new Action("Show all trainers per course", this::printAllTrainersPerCourse),
+            new Action("Show all assignments per course", this::printAllAssignmentsPerCourse),
+            new Action("Show all assignments per course per student", this::printAllAssignmentsPerCoursePerStudent),
+            new Action("Show all students with more than one course", this::printAllStudentsWithMoreThanOneCourse),
+            new Action("Create a new Assignment", this::createAssignment),
+            new Action("Create a new Course", this::createCourse),
+            new Action("Create a new Student", this::createStudent),
+            new Action("Create a new Trainer", this::createTrainer)
+    ));
 
-    @PostConstruct
-    private void init() {
-        actionMap.put("1", new Action("Show all students", this::printAllStudents));
-        actionMap.put("2", new Action("Show all trainers", this::printAllTrainers));
-        actionMap.put("3", new Action("Show all assignments", this::printAllAssignments));
-        actionMap.put("4", new Action("Show all courses", this::printAllCourses));
-        actionMap.put("5", new Action("Show all students per course", this::printAllStudentsPerCourse));
-        actionMap.put("6", new Action("Show all trainers per course", this::printAllTrainersPerCourse));
-        actionMap.put("7", new Action("Show all assignments per course", this::printAllAssignmentsPerCourse));
-        actionMap.put("8", new Action("Show all assignments per course per student", this::printAllAssignmentsPerCoursePerStudent));
-        actionMap.put("9", new Action("Show all students with more than one course", this::printAllStudentsWithMoreThanOneCourse));
+    private void printIntro() {
+        System.out.println("-- Available actions --");
+        printActions();
+        System.out.println("-- Please choose an action by typing the desired number --");
+        System.out.println("-- or type 'exit' to stop --");
     }
 
     private void printActions() {
-        actionMap.forEach((key, value) -> System.out.printf("%s) %s%n", key, value.getDescription()));
+        actionList.forEach(entry -> System.out.printf("%s) %s%n",
+                entry.getIndex() + 1, entry.getValue().getDescription()));
     }
 
     @Override
@@ -46,20 +55,27 @@ public class AppRunner implements CommandLineRunner {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
-            System.out.println("-- Available actions --");
-            printActions();
-            System.out.println("-- Please choose an action by typing the desired number --");
+            printIntro();
 
-            Action action = actionMap.get(sc.next());
-            if (action != null) {
-                action.run();
+            String input = sc.next();
+            if (input.equals("exit")) {
+                System.out.println("Goodbye!");
+                return;
+            }
+
+            try {
+                actionList
+                        .getList()
+                        .get(Integer.parseInt(input) - 1)
+                        .run();
 
                 System.out.println("Press any key to continue...");
 
                 sc.nextLine();
                 sc.nextLine();
-            } else {
-                break;
+
+            } catch (Exception e) {
+                System.out.println("-- Invalid action --");
             }
         }
     }
@@ -98,5 +114,21 @@ public class AppRunner implements CommandLineRunner {
 
     private void printAllStudentsWithMoreThanOneCourse() {
         studentService.printAllStudentsWithMoreThanOneCourse();
+    }
+
+    private void createAssignment() {
+        assignmentService.createAssignment();
+    }
+
+    private void createCourse() {
+        courseService.createCourse();
+    }
+
+    private void createStudent() {
+        studentService.createStudent();
+    }
+
+    private void createTrainer() {
+        trainerService.createTrainer();
     }
 }

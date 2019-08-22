@@ -8,4 +8,6 @@ public interface CourseService {
     void printAllTrainersPerCourse();
 
     void printAllAssignmentsPerCourse();
+
+    void createCourse();
 }

@@ -1,7 +1,9 @@
 package com.bootcamp.project2.service.impl;
 
+import com.bootcamp.project2.entity.Student;
 import com.bootcamp.project2.repository.StudentRepository;
 import com.bootcamp.project2.service.StudentService;
+import com.bootcamp.project2.utils.input.InputPersister;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +43,13 @@ public class StudentServiceImpl implements StudentService {
         studentRepository
                 .findAllStudentsWithMoreThanOneCourse()
                 .forEach(System.out::println);
+    }
+
+    @Override
+    public void createStudent() {
+        InputPersister.requestInputAndPersist(
+                Student.class,
+                studentRepository
+        );
     }
 }
