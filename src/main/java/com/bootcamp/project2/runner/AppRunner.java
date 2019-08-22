@@ -32,10 +32,12 @@ public class AppRunner implements CommandLineRunner {
             new Action("Show all assignments per course", this::printAllAssignmentsPerCourse),
             new Action("Show all assignments per course per student", this::printAllAssignmentsPerCoursePerStudent),
             new Action("Show all students with more than one course", this::printAllStudentsWithMoreThanOneCourse),
-            new Action("Create a new Assignment", this::createAssignment),
-            new Action("Create a new Course", this::createCourse),
-            new Action("Create a new Student", this::createStudent),
-            new Action("Create a new Trainer", this::createTrainer)
+            new Action("Create a new assignment", this::createAssignment),
+            new Action("Create a new course", this::createCourse),
+            new Action("Create a new student", this::createStudent),
+            new Action("Create a new trainer", this::createTrainer),
+            new Action("Add a student to a course", this::addStudentToCourse),
+            new Action("Add a trainer to a course", this::addTrainerToCourse)
     ));
 
     private void printIntro() {
@@ -74,7 +76,7 @@ public class AppRunner implements CommandLineRunner {
                 sc.nextLine();
                 sc.nextLine();
 
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 System.out.println("-- Invalid action --");
             }
         }
@@ -130,5 +132,13 @@ public class AppRunner implements CommandLineRunner {
 
     private void createTrainer() {
         trainerService.createTrainer();
+    }
+
+    private void addStudentToCourse() {
+        studentService.addStudentToCourse();
+    }
+
+    private void addTrainerToCourse() {
+        trainerService.addTrainerToCourse();
     }
 }

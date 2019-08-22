@@ -4,4 +4,6 @@ public interface TrainerService {
     void printAllTrainers();
 
     void createTrainer();
+
+    void addTrainerToCourse();
 }

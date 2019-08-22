@@ -1,17 +1,22 @@
 package com.bootcamp.project2.service.impl;
 
+import com.bootcamp.project2.entity.Course;
 import com.bootcamp.project2.entity.Trainer;
+import com.bootcamp.project2.repository.CourseRepository;
 import com.bootcamp.project2.repository.TrainerRepository;
 import com.bootcamp.project2.service.TrainerService;
-import com.bootcamp.project2.utils.input.InputPersister;
+import com.bootcamp.project2.utils.input.InputUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @AllArgsConstructor
 public class TrainerServiceImpl implements TrainerService {
 
     private TrainerRepository trainerRepository;
+    private CourseRepository courseRepository;
 
     @Override
     public void printAllTrainers() {
@@ -22,9 +27,27 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public void createTrainer() {
-        InputPersister.requestInputAndPersist(
+        InputUtils.requestInputAndPersist(
                 Trainer.class,
                 trainerRepository
         );
+    }
+
+    @Override
+    @Transactional
+    public void addTrainerToCourse() {
+        Trainer selectedTrainer = InputUtils.requestEntityChoice(
+                trainerRepository,
+                "Please select a student to add to a course:"
+        );
+
+        Course selectedCourse = InputUtils.requestEntityChoice(
+                courseRepository,
+                "Please select a course that the student will attend:"
+        );
+
+        selectedTrainer.getCourses().add(selectedCourse);
+
+        trainerRepository.save(selectedTrainer);
     }
 }

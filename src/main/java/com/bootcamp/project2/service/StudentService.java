@@ -8,4 +8,6 @@ public interface StudentService {
     void printAllStudentsWithMoreThanOneCourse();
 
     void createStudent();
+
+    void addStudentToCourse();
 }

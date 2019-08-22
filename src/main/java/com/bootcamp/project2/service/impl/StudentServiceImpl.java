@@ -1,10 +1,13 @@
 package com.bootcamp.project2.service.impl;
 
+import com.bootcamp.project2.entity.Course;
 import com.bootcamp.project2.entity.Student;
+import com.bootcamp.project2.repository.CourseRepository;
 import com.bootcamp.project2.repository.StudentRepository;
 import com.bootcamp.project2.service.StudentService;
-import com.bootcamp.project2.utils.input.InputPersister;
+import com.bootcamp.project2.utils.input.InputUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -14,6 +17,7 @@ import javax.transaction.Transactional;
 public class StudentServiceImpl implements StudentService {
 
     private StudentRepository studentRepository;
+    private CourseRepository courseRepository;
 
     @Override
     public void printAllStudents() {
@@ -47,9 +51,33 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void createStudent() {
-        InputPersister.requestInputAndPersist(
+        InputUtils.requestInputAndPersist(
                 Student.class,
                 studentRepository
         );
+    }
+
+    @Override
+    @Transactional
+    public void addStudentToCourse() {
+        Student selectedStudent = InputUtils.requestEntityChoice(
+                studentRepository,
+                "Please select a student to add to a course:"
+        );
+
+        Course selectedCourse = InputUtils.requestEntityChoice(
+                courseRepository,
+                "Please select a course that the student will attend:"
+        );
+
+        System.out.println(selectedStudent);
+        System.out.println(selectedCourse);
+
+        selectedStudent.getCourses().add(selectedCourse);
+
+        System.out.println(selectedStudent.getId());
+        selectedStudent.getCourses().forEach(x -> System.out.println(x.getId()));
+
+        studentRepository.save(selectedStudent);
     }
 }
