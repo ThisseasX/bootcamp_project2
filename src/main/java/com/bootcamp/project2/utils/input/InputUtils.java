@@ -40,7 +40,7 @@ public class InputUtils {
 
         while (true) {
             System.out.println(prompt);
-            list.forEach(entry -> System.out.printf("%s) %s%n", entry.getIndex() + 1, entry.getValue().getName()));
+            list.forEach(entry -> System.out.printf("%s) %s%n", entry.getIndex() + 1, entry.getValue()));
 
             try {
                 return list.getList().get(Integer.parseInt(sc.next()) - 1);

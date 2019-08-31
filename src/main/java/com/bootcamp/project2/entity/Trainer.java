@@ -5,22 +5,22 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Trainer implements NamedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     @Column
-    @EqualsAndHashCode.Exclude
     private String name;
 
     @Column
-    @EqualsAndHashCode.Exclude
     private String surname;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -29,7 +29,7 @@ public class Trainer implements NamedEntity {
             joinColumns = @JoinColumn(name = "trainer_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
-    private List<Course> courses;
+    private Set<Course> courses;
 
     @Override
     public String toString() {

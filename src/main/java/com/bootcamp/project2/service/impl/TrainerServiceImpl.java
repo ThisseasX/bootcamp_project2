@@ -38,16 +38,22 @@ public class TrainerServiceImpl implements TrainerService {
     public void addTrainerToCourse() {
         Trainer selectedTrainer = InputUtils.requestEntityChoice(
                 trainerRepository,
-                "Please select a student to add to a course:"
+                "Please select a trainer to add to a course:"
         );
 
         Course selectedCourse = InputUtils.requestEntityChoice(
                 courseRepository,
-                "Please select a course that the student will attend:"
+                "Please select a course that the trainer will teach:"
         );
 
+        int i = selectedTrainer.getCourses().size();
         selectedTrainer.getCourses().add(selectedCourse);
 
-        trainerRepository.save(selectedTrainer);
+        if (i == selectedTrainer.getCourses().size()) {
+            System.out.printf("-- Trainer: [%s] is already teaching: [%s] --%n", selectedTrainer, selectedCourse);
+        } else {
+            trainerRepository.save(selectedTrainer);
+            System.out.printf("-- Trainer: [%s] saved successfully with new Course: [%s] --%n", selectedTrainer, selectedCourse);
+        }
     }
 }

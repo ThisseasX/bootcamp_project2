@@ -6,27 +6,29 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Course implements NamedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     @Column
-    @EqualsAndHashCode.Exclude
     private String name;
 
     @OneToMany(mappedBy = "course")
     private List<Assignment> assignments;
 
     @ManyToMany(mappedBy = "courses")
-    private List<Student> students;
+    private Set<Student> students;
 
     @ManyToMany(mappedBy = "courses")
-    private List<Trainer> trainers;
+    private Set<Trainer> trainers;
 
     @Override
     public String toString() {

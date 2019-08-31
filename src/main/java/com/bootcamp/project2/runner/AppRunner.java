@@ -76,7 +76,7 @@ public class AppRunner implements CommandLineRunner {
                 sc.nextLine();
                 sc.nextLine();
 
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 System.out.println("-- Invalid action --");
             }
         }

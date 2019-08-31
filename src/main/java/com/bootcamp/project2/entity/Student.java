@@ -5,23 +5,22 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Student implements NamedEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private int id;
 
     @Column
-    @EqualsAndHashCode.Exclude
     private String name;
 
     @Column
-    @EqualsAndHashCode.Exclude
     private String surname;
 
     @ManyToMany(cascade = CascadeType.ALL)
