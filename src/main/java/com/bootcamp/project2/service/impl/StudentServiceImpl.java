@@ -69,6 +69,10 @@ public class StudentServiceImpl implements StudentService {
                 "Please select a course that the student will attend:"
         );
 
+        if (selectedStudent == null || selectedCourse == null) {
+            return;
+        }
+
         int previousSize = selectedStudent.getCourses().size();
         selectedStudent.getCourses().add(selectedCourse);
 

@@ -9,6 +9,7 @@ import com.bootcamp.project2.utils.input.InputUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.function.Supplier;
 
 @Service
@@ -37,5 +38,28 @@ public class AssignmentServiceImpl implements AssignmentService {
                 assignmentRepository,
                 assignment -> assignment.setCourse(courseSupplier.get())
         );
+    }
+
+    @Override
+    @Transactional
+    public void addAssignmentToCourse() {
+        Assignment selectedAssignment = InputUtils.requestEntityChoice(
+                assignmentRepository,
+                "Please select an assignment to add to a course:"
+        );
+
+        Course selectedCourse = InputUtils.requestEntityChoice(
+                courseRepository,
+                "Please select the course that the assignment belongs to:"
+        );
+
+        if (selectedAssignment == null || selectedCourse == null) {
+            return;
+        }
+
+        selectedAssignment.setCourse(selectedCourse);
+
+        assignmentRepository.save(selectedAssignment);
+        System.out.printf("-- Assignment: [%s] was successfully saved with new Course: [%s] --%n", selectedAssignment, selectedCourse);
     }
 }

@@ -46,6 +46,10 @@ public class TrainerServiceImpl implements TrainerService {
                 "Please select a course that the trainer will teach:"
         );
 
+        if (selectedTrainer == null || selectedCourse == null) {
+            return;
+        }
+
         int previousSize = selectedTrainer.getCourses().size();
         selectedTrainer.getCourses().add(selectedCourse);
 

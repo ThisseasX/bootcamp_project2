@@ -36,6 +36,7 @@ public class AppRunner implements CommandLineRunner {
             new Action("Create a new assignment", () -> assignmentService.createAssignment()),
             new Action("Create a new student", () -> studentService.createStudent()),
             new Action("Create a new trainer", () -> trainerService.createTrainer()),
+            new Action("Add a assignment to a course", () -> assignmentService.addAssignmentToCourse()),
             new Action("Add a student to a course", () -> studentService.addStudentToCourse()),
             new Action("Add a trainer to a course", () -> trainerService.addTrainerToCourse())
     ));

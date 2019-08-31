@@ -4,4 +4,6 @@ public interface AssignmentService {
     void printAllAssignments();
 
     void createAssignment();
+
+    void addAssignmentToCourse();
 }
