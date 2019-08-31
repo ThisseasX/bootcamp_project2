@@ -9,6 +9,8 @@ import com.bootcamp.project2.utils.input.InputUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.function.Supplier;
+
 @Service
 @AllArgsConstructor
 public class AssignmentServiceImpl implements AssignmentService {
@@ -25,7 +27,7 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Override
     public void createAssignment() {
-        Course selectedCourse = InputUtils.requestEntityChoice(
+        Supplier<Course> courseSupplier = () -> InputUtils.requestEntityChoice(
                 courseRepository,
                 "Please choose the course this assignment belongs to:"
         );
@@ -33,7 +35,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         InputUtils.requestInputAndPersist(
                 Assignment.class,
                 assignmentRepository,
-                assignment -> assignment.setCourse(selectedCourse)
+                assignment -> assignment.setCourse(courseSupplier.get())
         );
     }
 }

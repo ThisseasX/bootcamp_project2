@@ -25,6 +25,7 @@ public class InputUtils {
     public static <T> T mapInputToEntity(Class<T> clazz) throws MappingException {
         try {
             Scanner sc = new Scanner(System.in);
+
             T mappedEntity = clazz.getDeclaredConstructor().newInstance();
 
             for (Field f : clazz.getDeclaredFields()) {
@@ -32,7 +33,7 @@ public class InputUtils {
                     System.out.printf("Please input a %s:%n", f.getName());
 
                     f.setAccessible(true);
-                    f.set(mappedEntity, sc.next());
+                    f.set(mappedEntity, sc.nextLine());
                 }
             }
 
@@ -54,6 +55,12 @@ public class InputUtils {
     public static <T> T requestEntityChoice(JpaRepository<T, Integer> repository, String prompt) {
         Scanner sc = new Scanner(System.in);
         IndexedList<T> list = new IndexedList<>(repository.findAll());
+
+        if (list.getList().size() == 0) {
+            System.out.println(prompt);
+            System.out.println("-- There are no items to choose from, please add some --");
+            return null;
+        }
 
         while (true) {
             System.out.println(prompt);
