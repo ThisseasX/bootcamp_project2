@@ -1,6 +1,5 @@
 package com.bootcamp.project2.runner.actions;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

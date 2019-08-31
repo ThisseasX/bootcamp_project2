@@ -1,6 +1,5 @@
 package com.bootcamp.project2.repository.customized.Impl;
 
-
 import com.bootcamp.project2.entity.Student;
 import com.bootcamp.project2.repository.customized.StudentRepositoryCustomized;
 import org.springframework.stereotype.Repository;
