@@ -1,17 +1,15 @@
 package com.bootcamp.project2.entity;
 
-import com.bootcamp.project2.utils.input.interfaces.NamedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Course implements NamedEntity {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +20,7 @@ public class Course implements NamedEntity {
     private String name;
 
     @OneToMany(mappedBy = "course")
-    private List<Assignment> assignments;
+    private Set<Assignment> assignments;
 
     @ManyToMany(mappedBy = "courses")
     private Set<Student> students;

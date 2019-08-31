@@ -1,7 +1,5 @@
 package com.bootcamp.project2.service;
 
-import com.bootcamp.project2.entity.Course;
-
 public interface CourseService {
     void printAllCourses();
 

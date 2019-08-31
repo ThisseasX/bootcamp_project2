@@ -7,7 +7,6 @@ import com.bootcamp.project2.repository.StudentRepository;
 import com.bootcamp.project2.service.StudentService;
 import com.bootcamp.project2.utils.input.InputUtils;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -70,14 +69,14 @@ public class StudentServiceImpl implements StudentService {
                 "Please select a course that the student will attend:"
         );
 
-        System.out.println(selectedStudent);
-        System.out.println(selectedCourse);
-
+        int previousSize = selectedStudent.getCourses().size();
         selectedStudent.getCourses().add(selectedCourse);
 
-        System.out.println(selectedStudent.getId());
-        selectedStudent.getCourses().forEach(x -> System.out.println(x.getId()));
-
-        studentRepository.save(selectedStudent);
+        if (previousSize == selectedStudent.getCourses().size()) {
+            System.out.printf("-- Student: [%s] is already attending: [%s] --%n", selectedStudent, selectedCourse);
+        } else {
+            studentRepository.save(selectedStudent);
+            System.out.printf("-- Student: [%s] was successfully saved with new Course: [%s] --%n", selectedStudent, selectedCourse);
+        }
     }
 }

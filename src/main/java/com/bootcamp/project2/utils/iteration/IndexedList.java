@@ -17,7 +17,7 @@ public class IndexedList<T> implements Iterable<IndexedEntry<T>> {
         return new Iterator<IndexedEntry<T>>() {
 
             private int index;
-            private Iterator<T> iterator = list.iterator();
+            private final Iterator<T> iterator = list.iterator();
 
             @Override
             public boolean hasNext() {

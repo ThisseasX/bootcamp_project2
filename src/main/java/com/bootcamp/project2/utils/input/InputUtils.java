@@ -1,7 +1,6 @@
 package com.bootcamp.project2.utils.input;
 
 import com.bootcamp.project2.utils.input.exceptions.MappingException;
-import com.bootcamp.project2.utils.input.interfaces.NamedEntity;
 import com.bootcamp.project2.utils.iteration.IndexedList;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -34,7 +33,7 @@ public class InputUtils {
         }
     }
 
-    public static <T extends NamedEntity> T requestEntityChoice(JpaRepository<T, Integer> repository, String prompt) {
+    public static <T> T requestEntityChoice(JpaRepository<T, Integer> repository, String prompt) {
         Scanner sc = new Scanner(System.in);
         IndexedList<T> list = new IndexedList<>(repository.findAll());
 

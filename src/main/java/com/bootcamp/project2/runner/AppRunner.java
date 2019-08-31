@@ -23,21 +23,21 @@ public class AppRunner implements CommandLineRunner {
     private TrainerService trainerService;
 
     private final IndexedList<Action> actionList = new IndexedList<>(Arrays.asList(
-            new Action("Show all students", this::printAllStudents),
-            new Action("Show all trainers", this::printAllTrainers),
-            new Action("Show all assignments", this::printAllAssignments),
-            new Action("Show all courses", this::printAllCourses),
-            new Action("Show all students per course", this::printAllStudentsPerCourse),
-            new Action("Show all trainers per course", this::printAllTrainersPerCourse),
-            new Action("Show all assignments per course", this::printAllAssignmentsPerCourse),
-            new Action("Show all assignments per course per student", this::printAllAssignmentsPerCoursePerStudent),
-            new Action("Show all students with more than one course", this::printAllStudentsWithMoreThanOneCourse),
-            new Action("Create a new assignment", this::createAssignment),
-            new Action("Create a new course", this::createCourse),
-            new Action("Create a new student", this::createStudent),
-            new Action("Create a new trainer", this::createTrainer),
-            new Action("Add a student to a course", this::addStudentToCourse),
-            new Action("Add a trainer to a course", this::addTrainerToCourse)
+            new Action("Show all students", () -> studentService.printAllStudents()),
+            new Action("Show all trainers", () -> trainerService.printAllTrainers()),
+            new Action("Show all assignments", () -> assignmentService.printAllAssignments()),
+            new Action("Show all courses", () -> courseService.printAllCourses()),
+            new Action("Show all students per course", () -> courseService.printAllStudentsPerCourse()),
+            new Action("Show all trainers per course", () -> courseService.printAllTrainersPerCourse()),
+            new Action("Show all assignments per course", () -> courseService.printAllAssignmentsPerCourse()),
+            new Action("Show all assignments per course per student", () -> studentService.printAllAssignmentsPerCoursePerStudent()),
+            new Action("Show all students with more than one course", () -> studentService.printAllStudentsWithMoreThanOneCourse()),
+            new Action("Create a new assignment", () -> assignmentService.createAssignment()),
+            new Action("Create a new course", () -> courseService.createCourse()),
+            new Action("Create a new student", () -> studentService.createStudent()),
+            new Action("Create a new trainer", () -> trainerService.createTrainer()),
+            new Action("Add a student to a course", () -> studentService.addStudentToCourse()),
+            new Action("Add a trainer to a course", () -> trainerService.addTrainerToCourse())
     ));
 
     private void printIntro() {
@@ -80,65 +80,5 @@ public class AppRunner implements CommandLineRunner {
                 System.out.println("-- Invalid action --");
             }
         }
-    }
-
-    private void printAllStudents() {
-        studentService.printAllStudents();
-    }
-
-    private void printAllTrainers() {
-        trainerService.printAllTrainers();
-    }
-
-    private void printAllAssignments() {
-        assignmentService.printAllAssignments();
-    }
-
-    private void printAllCourses() {
-        courseService.printAllCourses();
-    }
-
-    private void printAllStudentsPerCourse() {
-        courseService.printAllStudentsPerCourse();
-    }
-
-    private void printAllTrainersPerCourse() {
-        courseService.printAllTrainersPerCourse();
-    }
-
-    private void printAllAssignmentsPerCourse() {
-        courseService.printAllAssignmentsPerCourse();
-    }
-
-    private void printAllAssignmentsPerCoursePerStudent() {
-        studentService.printAllAssignmentsPerCoursePerStudent();
-    }
-
-    private void printAllStudentsWithMoreThanOneCourse() {
-        studentService.printAllStudentsWithMoreThanOneCourse();
-    }
-
-    private void createAssignment() {
-        assignmentService.createAssignment();
-    }
-
-    private void createCourse() {
-        courseService.createCourse();
-    }
-
-    private void createStudent() {
-        studentService.createStudent();
-    }
-
-    private void createTrainer() {
-        trainerService.createTrainer();
-    }
-
-    private void addStudentToCourse() {
-        studentService.addStudentToCourse();
-    }
-
-    private void addTrainerToCourse() {
-        trainerService.addTrainerToCourse();
     }
 }

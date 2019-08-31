@@ -1,14 +1,14 @@
 package com.bootcamp.project2.entity;
 
-import com.bootcamp.project2.utils.input.interfaces.NamedEntity;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Assignment implements NamedEntity {
+public class Assignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

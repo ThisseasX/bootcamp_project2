@@ -46,14 +46,14 @@ public class TrainerServiceImpl implements TrainerService {
                 "Please select a course that the trainer will teach:"
         );
 
-        int i = selectedTrainer.getCourses().size();
+        int previousSize = selectedTrainer.getCourses().size();
         selectedTrainer.getCourses().add(selectedCourse);
 
-        if (i == selectedTrainer.getCourses().size()) {
+        if (previousSize == selectedTrainer.getCourses().size()) {
             System.out.printf("-- Trainer: [%s] is already teaching: [%s] --%n", selectedTrainer, selectedCourse);
         } else {
             trainerRepository.save(selectedTrainer);
-            System.out.printf("-- Trainer: [%s] saved successfully with new Course: [%s] --%n", selectedTrainer, selectedCourse);
+            System.out.printf("-- Trainer: [%s] was successfully saved with new Course: [%s] --%n", selectedTrainer, selectedCourse);
         }
     }
 }

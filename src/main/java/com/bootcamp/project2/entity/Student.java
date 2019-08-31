@@ -1,6 +1,5 @@
 package com.bootcamp.project2.entity;
 
-import com.bootcamp.project2.utils.input.interfaces.NamedEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,7 +9,7 @@ import java.util.Set;
 @Data
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Student implements NamedEntity {
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
