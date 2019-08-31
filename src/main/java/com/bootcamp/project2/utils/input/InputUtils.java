@@ -2,6 +2,7 @@ package com.bootcamp.project2.utils.input;
 
 import com.bootcamp.project2.utils.input.exceptions.MappingException;
 import com.bootcamp.project2.utils.iteration.IndexedList;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ public class InputUtils {
      * to the entity's fields marked with {@link Column} annotation.
      *
      * @param clazz The desired class to be created and mapped.
-     * @param <T> An entity with String-type @Column-annotated fields.
+     * @param <T>   An entity with String-type @Column-annotated fields.
      * @return Returns a filled entity of the given class.
      * @throws MappingException Thrown in case of a reflection error.
      */
@@ -44,9 +45,10 @@ public class InputUtils {
 
     /**
      * Ask the user to choose an existing entity.
+     *
      * @param repository The repository used to fetch the entity.
-     * @param prompt The question to be printed.
-     * @param <T> An entity to be chosen.
+     * @param prompt     The question to be printed.
+     * @param <T>        An entity to be chosen.
      * @return Returns the chosen entity.
      */
     public static <T> T requestEntityChoice(JpaRepository<T, Integer> repository, String prompt) {
@@ -77,20 +79,24 @@ public class InputUtils {
      * save it to the database using the given repository. Optionally accepts a mutator,
      * used to give the ability to manipulate the entity before it is saved, e.g. filling
      * non-Column fields with other means, such as a separate call to {@link InputUtils#requestEntityChoice(JpaRepository, String)}.
-     * @param clazz The desired class to be created and saved.
+     *
+     * @param clazz      The desired class to be created and saved.
      * @param repository The repository used to save the entity.
-     * @param mutator (Optional) A {@link Consumer} that can be used to fill the entity's fields through other means.
-     * @param <T> An entity to be created and saved.
+     * @param mutator    (Optional) A {@link Consumer} that can be used to fill the entity's fields through other means.
+     * @param <T>        An entity to be created and saved.
      */
     public static <T> void requestInputAndPersist(Class<T> clazz, JpaRepository<T, Integer> repository, Consumer<T> mutator) {
         try {
             T entity = mapInputToEntity(clazz);
+
             if (mutator != null) {
                 mutator.accept(entity);
             }
+
             repository.save(entity);
             System.out.printf("-- %s: [%s] was successfully saved --%n", clazz.getSimpleName(), entity);
-        } catch (MappingException e) {
+
+        } catch (MappingException | DataIntegrityViolationException e) {
             System.out.printf("-- Failed to create %s --%n", clazz.getSimpleName());
         }
     }
