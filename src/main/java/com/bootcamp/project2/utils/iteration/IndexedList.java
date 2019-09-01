@@ -8,13 +8,13 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class IndexedList<T> implements Iterable<IndexedEntry<T>> {
+public class IndexedList<T> implements Iterable<IndexedList.Entry<T>> {
 
     private final List<T> list;
 
     @Override
-    public Iterator<IndexedEntry<T>> iterator() {
-        return new Iterator<IndexedEntry<T>>() {
+    public Iterator<IndexedList.Entry<T>> iterator() {
+        return new Iterator<IndexedList.Entry<T>>() {
 
             private int index;
             private final Iterator<T> iterator = list.iterator();
@@ -25,9 +25,16 @@ public class IndexedList<T> implements Iterable<IndexedEntry<T>> {
             }
 
             @Override
-            public IndexedEntry<T> next() {
-                return new IndexedEntry<>(index++, iterator.next());
+            public IndexedList.Entry<T> next() {
+                return new IndexedList.Entry<>(index++, iterator.next());
             }
         };
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class Entry<T> {
+        int index;
+        T value;
     }
 }
