@@ -1,5 +1,5 @@
 # bootcamp_project2
-Advanced implementation of the `individual_project_part_b`.
+Advanced implementation of the Coding Bootcamp 8 `individual_project_part_b` exercise.
 
 # Notable Features
 * Spring Boot
